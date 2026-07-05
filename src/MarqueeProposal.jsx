@@ -4,19 +4,13 @@ const MarqueeProposal = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const sentences = [
-    "You light up my world like no one else.",
-    "Every moment with you feels like magic.",
-    "My world begins and ends with you in it.",
-    "You're the reason my heart beats faster.",
-    "Life feels complete when you're around.",
-    "I can't imagine my future without you.",
-    "You're my sunshine on the darkest days.",
-    "With you, every day is a blessing.",
-    "You’re the missing piece that completes my heart.",
-    "You make even ordinary moments feel extraordinary.",
-    "You make my world brighter and happier.",
-    "You're the dream I never want to wake up from.",
-    "Will you be the love of my life forever?",
+    "কিছু মানুষ কেবল বন্ধু নয়, তারা জীবনের আশীর্বাদ। 🌿",
+    "তোমার থাকা মানেই একটা অদ্ভুত প্রশান্তি। 🕊️",
+    "তোমার সাথে কাটানো মুহূর্তগুলো স্মৃতির সবচেয়ে সুন্দর পাতায় লেখা। 📖",
+    "যে হাসিতে জোছনা ঝরে, সে হাসি তো সবার হয় না! 🌙",
+    "তুমি আমার পরিচিত পৃথিবীর সবচেয়ে সুন্দর অধ্যায়। ✨",
+    "কিছু মানুষের উপস্থিতি নিঃশব্দেই অনেক কিছু বলে দেয়। 🍂",
+    "ধন্যবাদ, আমার পৃথিবীর এতোটা অংশ জুড়ে থাকার জন্য। 🌸",
   ];
 
   useEffect(() => {
@@ -48,18 +42,19 @@ const MarqueeProposal = () => {
           whiteSpace: "nowrap",
           position: "absolute",
           animation: "marquee 10s linear infinite",
+          willChange: "transform",
         }}
         key={currentIndex}
       >
         <span
           style={{
             fontSize: "2rem",
-            fontFamily: "Charm, serif", 
-            // fontFamily: "Beau Rivage, serif", 
+            fontFamily: "'Hind Siliguri', sans-serif", 
             fontStyle: "normal",
             fontWeight: "700",
-            color: "#191a19",
-            textShadow: "0 4px 8px rgba(0, 0, 0, 0.6)",
+            color: "#e2e8f0",
+            display: "inline-block",
+            whiteSpace: "nowrap",
           }}
         >
           {sentences[currentIndex]}

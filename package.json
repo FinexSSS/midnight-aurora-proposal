@@ -1,7 +1,8 @@
 {
-  "name": "alwaysbemine",
+  "name": "midnight-aurora-proposal",
+  "author": "Ezio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,9 +12,12 @@
   },
   "dependencies": {
     "@splinetool/react-spline": "^4.0.0",
+    "canvas-confetti": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.4.0",
+    "react-parallax-tilt": "^1.7.333",
+    "react-youtube": "^10.1.0",
     "sweetalert2": "^11.15.3"
   },
   "devDependencies": {
