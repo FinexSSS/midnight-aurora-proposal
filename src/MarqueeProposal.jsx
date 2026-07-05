@@ -23,9 +23,10 @@ const MarqueeProposal = () => {
   return (
     <div
       style={{
-        width: "50%",
+        width: "90%",
+        maxWidth: "600px",
         height: "75px",
-        margin: "50px auto",
+        margin: "30px auto",
         borderRadius: "25px",
         overflow: "hidden",
         position: "relative",

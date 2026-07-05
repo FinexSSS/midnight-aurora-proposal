@@ -169,11 +169,13 @@ export default function Page() {
 
   return (
     <>
-      <div className="stars"></div>
-      <div className="twinkling"></div>
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
+        <div className="stars"></div>
+        <div className="twinkling"></div>
+      </div>
       
       {/* HTML5 Audio Player referencing user's uploaded song */}
-      <audio ref={audioRef} loop src="/Music/Ki hobey_  KaaktaalRaw v06 Ch08.mp3" />
+      <audio ref={audioRef} loop src="/Music/Ki hobey_  KaaktaalRaw v06 Ch08.mp3" preload="auto" />
 
       {/* Music Toggle */}
       <button
