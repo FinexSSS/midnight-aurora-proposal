@@ -12,6 +12,7 @@ import happyGif from "./assets/GifData/happy.gif";
 export default function Page() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
+  const [isIntro, setIsIntro] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   
   const audioRef = useRef(null);
@@ -106,6 +107,11 @@ export default function Page() {
     setIsMuted(!isMuted);
   };
 
+  const handleIntroClick = () => {
+    playAudio();
+    setIsIntro(false);
+  };
+
   const handleNoClick = () => {
     playAudio();
     const nextCount = noCount + 1;
@@ -192,9 +198,22 @@ export default function Page() {
       <div className="overflow-hidden flex flex-col items-center justify-center min-h-screen selection:bg-indigo-500 selection:text-white p-4">
         
         <div className="w-full max-w-4xl flex flex-col items-center">
-          <div className="glass-panel p-6 md:p-12 w-full flex flex-col items-center text-center transition-all duration-1000 ease-in-out relative z-10">
-            
-            {/* Interactive Aesthetic GIF using reliable local assets */}
+          {isIntro ? (
+            <div className="glass-panel p-8 md:p-16 w-full max-w-2xl flex flex-col items-center text-center transition-all duration-1000 ease-in-out relative z-10 animate-fadeInUp">
+              <h1 className="text-3xl md:text-4xl my-8 leading-[1.6] text-indigo-100 font-medium">
+                কিছু গল্প শুরু হওয়ার আগেই একটা সুন্দর সুর বেজে ওঠে... 🌙
+              </h1>
+              <button
+                className="mt-8 bg-indigo-600/80 hover:bg-indigo-500 text-white font-semibold py-4 px-12 rounded-full shadow-[0_0_30px_rgba(79,70,229,0.5)] hover:shadow-[0_0_50px_rgba(79,70,229,0.8)] backdrop-blur-md border border-indigo-400/30 transition-all duration-500 transform hover:scale-105 text-xl tracking-wider"
+                onClick={handleIntroClick}
+              >
+                ভিতরে এসো ✨
+              </button>
+            </div>
+          ) : (
+            <div className="glass-panel p-6 md:p-12 w-full flex flex-col items-center text-center transition-all duration-1000 ease-in-out relative z-10 animate-fadeIn">
+              
+              {/* Interactive Aesthetic GIF using reliable local assets */}
             <div className="mb-6 h-32 md:h-40 flex justify-center items-center">
               <img 
                 key={getGifUrl()} // Key ensures image fade triggers if we add classes
@@ -247,7 +266,8 @@ export default function Page() {
                 </div>
               </div>
             )}
-          </div>
+            </div>
+          )}
         </div>
         
         <Footer />
