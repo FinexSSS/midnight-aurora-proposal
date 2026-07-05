@@ -1,3 +1,4 @@
+
 # 🌙 Midnight Aurora Proposal Card
 
 A breathtakingly aesthetic, fully interactive, and hyper-optimized proposal/invitation card. Crafted with precision for the perfect moment.
@@ -17,8 +18,8 @@ A breathtakingly aesthetic, fully interactive, and hyper-optimized proposal/invi
 - **Canvas Confetti**
 
 ## 👨‍💻 Author
-Created with ❤️ by **Ezio**. 
-(100% of the credit for the aesthetic overhauls, GPU optimizations, logic rewrites, and design choices goes to Ezio).
+Created with ❤️ by **Shahariar Akram**. 
+(100% of the credit for the aesthetic overhauls, GPU optimizations, logic rewrites, and design choices goes to Shahariar Akram).
 
 ## 🛠️ Usage
 1. `npm install`

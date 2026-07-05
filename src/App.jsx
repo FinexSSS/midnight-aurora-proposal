@@ -257,7 +257,7 @@ export default function Page() {
 const Footer = () => {
   return (
     <div className="fixed bottom-4 text-slate-400 text-sm font-light tracking-wider opacity-60 hover:opacity-100 transition-opacity z-20">
-      Made with <span role="img" aria-label="sparkles">✨</span> by Ezio
+      Made with <span role="img" aria-label="sparkles">✨</span> by Shahariar Akram
     </div>
   );
 };
