@@ -112,6 +112,11 @@ export default function Page() {
     setIsMuted(!isMuted);
   };
 
+  const handleIntroClick = () => {
+    playAudio();
+    setIsIntro(false);
+  };
+
   const handleNoClick = () => {
     playAudio();
     
