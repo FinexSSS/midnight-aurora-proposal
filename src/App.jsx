@@ -15,6 +15,7 @@ export default function Page() {
   const [yesPressed, setYesPressed] = useState(false);
   const [isIntro, setIsIntro] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
+  const [noBtnStyle, setNoBtnStyle] = useState({});
   
   const audioRef = useRef(null);
 
@@ -24,16 +25,9 @@ export default function Page() {
   const noPhrases = [
     "না 🙁",
     "সত্যিই?",
-    "আবার ভাবো!",
     "এতো কঠিন হৃদয়?",
     "একটু দয়া করো! 🥺",
-    "আকাশও কাঁদছে দেখো! 🌧️",
-    "চাঁদও লুকিয়ে গেলো!",
-    "তারাগুলো নিভে যাচ্ছে! ⭐",
-    "কবি বলেছেন — নিষ্ঠুরতা মানায় না! 📜",
     "ফুলগুলোও মুখ ঘুরিয়ে নিলো! 🌸",
-    "বৃষ্টি নামলো চোখে! 🌧️",
-    "রবীন্দ্রনাথও এতো নিষ্ঠুর ছিলেন না!",
     "শেষবারের মতো ভাবো! 🙏",
     "প্লিজ? আমি তো কিছু খারাপ চাইনি! 💫",
   ];
@@ -43,17 +37,10 @@ export default function Page() {
     "এই বিশাল পৃথিবীতে কিছু মানুষের উপস্থিতি খুব শান্ত, খুব মায়াবী... ঠিক তোমার মতো। একটু সময় হবে আমার জন্য? ✨", // 0
     "মেঘলা দিনে একলা আকাশ যেমন শূন্য লাগে, তুমি না থাকলে ঠিক তেমনই লাগে... ☁️", // 1
     "একটু ভেবে দেখো না? খুব বেশি তো কিছু চাইনি... 🍂", // 2
-    "জানো, কিছু গল্প শুরু হওয়ার আগেই ফুরিয়ে গেলে খুব কষ্ট হয়... 📖", // 3
-    "তোমার ওই হাসিটা দেখার জন্যই তো এতো আয়োজন! একটু হাসবে? 🌸", // 4
-    "এতটা পাষাণ কি হতে হয়? একটু তো মায়া করো! 🥺", // 5
-    "তুমি না বললে এই রাতের আকাশটাও কেমন যেন বিষণ্ণ হয়ে যায়... 🌙", // 6
-    "প্লিজ? আমি কিন্তু তোমার ওই মিষ্টি হাসির অপেক্ষায় আছি... 💫", // 7
-    "আচ্ছা ঠিক আছে, আমি আর জোর করবোচ্ছ না, কিন্তু একবার ভেবে দেখো! 💔", // 8
-    "তুমি জানো তুমি কতটা স্পেশাল? তোমার 'হ্যাঁ' টা আমার খুব দরকার! 🌟", // 9
-    "জানো? তোমার এই ছোট্ট একটা 'হ্যাঁ' আমার পুরো পৃথিবীটা আলো করে দিতে পারে... ✨", // 10
-    "অনেক তো হলো লুকোচুরি, এবার না হয় সত্যিটা মেনেই নিলে? 🌸", // 11
-    "তোমার জন্য আমার এই অপেক্ষার কি কোনো শেষ নেই? একটু তো দয়া করো! 🥺", // 12
-    "শেষবারের মতো জিজ্ঞেস করছি... এই সুন্দর আকাশটার দিকে তাকিয়ে অন্তত হ্যাঁ বলে দাও! 🌙", // 13
+    "তোমার ওই হাসিটা দেখার জন্যই তো এতো আয়োজন! একটু হাসবে? 🌸", // 3
+    "এতটা পাষাণ কি হতে হয়? একটু তো মায়া করো! 🥺", // 4
+    "প্লিজ? আমি কিন্তু তোমার ওই মিষ্টি হাসির অপেক্ষায় আছি... 💫", // 5
+    "তুমি জানো তুমি কতটা স্পেশাল? তোমার 'হ্যাঁ' টা আমার খুব দরকার! 🌟", // 6
   ];
 
   // Fallback for when noCount exceeds mainMessages length
@@ -117,33 +104,35 @@ export default function Page() {
     setIsIntro(false);
   };
 
+  const dodgeButton = () => {
+    if (noCount >= 2) {
+      // Calculate max coordinates to keep button fully inside screen
+      const maxX = window.innerWidth - 120;
+      const maxY = window.innerHeight - 60;
+      
+      const newX = Math.max(20, Math.random() * maxX);
+      const newY = Math.max(20, Math.random() * maxY);
+      
+      setNoBtnStyle({
+        position: 'fixed',
+        left: `${newX}px`,
+        top: `${newY}px`,
+        zIndex: 50,
+      });
+
+      // Increment text progression secretly while dodging
+      if (noCount < noPhrases.length - 1) {
+        setNoCount(prev => prev + 1);
+      }
+    }
+  };
+
   const handleNoClick = () => {
     playAudio();
-    const nextCount = noCount + 1;
-    setNoCount(nextCount);
-    
-    if (nextCount === 1) {
-      Swal.fire({
-        title: "এত্ত পাষাণ তুমি? চাঁদটাও মেঘের আড়ালে লুকিয়ে গেলো তোমার না শুনে! 🌙",
-        customClass: {
-          popup: 'glass-swal',
-          title: 'glass-swal-title',
-          confirmButton: 'glass-swal-confirm'
-        },
-        buttonsStyling: false,
-        confirmButtonText: "আচ্ছা, আরেকবার ভাবছি!"
-      });
-    } else if (nextCount === 10) {
-      Swal.fire({
-        title: "সত্যিই মানবে না? একটু তো মায়া করো! 🥺",
-        customClass: {
-          popup: 'glass-swal',
-          title: 'glass-swal-title',
-          confirmButton: 'glass-swal-confirm'
-        },
-        buttonsStyling: false,
-        confirmButtonText: "হুমম"
-      });
+    if (noCount < 2) {
+      setNoCount(noCount + 1);
+    } else {
+      dodgeButton();
     }
   };
 
@@ -260,10 +249,13 @@ export default function Page() {
                     হ্যাঁ
                   </button>
                   
-                  {/* The Disappearing No Button */}
+                  {/* The Disappearing/Runaway No Button */}
                   {showNoButton && (
                     <button
                       onClick={handleNoClick}
+                      onMouseEnter={dodgeButton}
+                      onTouchStart={dodgeButton}
+                      style={noBtnStyle}
                       className="bg-slate-800/60 hover:bg-slate-700/80 text-slate-200 font-semibold py-3 px-6 rounded-full backdrop-blur-md border border-slate-600/50 transition-all duration-300"
                     >
                       {noPhrases[noCount]}
