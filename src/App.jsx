@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import confetti from "canvas-confetti";
 import WordMareque from './MarqueeProposal.jsx';
 import { BsVolumeUpFill, BsVolumeMuteFill } from "react-icons/bs";
+import { Analytics } from "@vercel/analytics/react";
 
 // Import Local GIFs to ensure 100% visibility
 import initialGif from "./assets/GifData/main_temp.gif";
@@ -175,6 +176,7 @@ export default function Page() {
 
   return (
     <>
+      <Analytics />
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
         <div className="stars"></div>
         <div className="twinkling"></div>
