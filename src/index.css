@@ -134,3 +134,9 @@ body {
     opacity: 1;
   }
 }
+
+@keyframes heartbeat {
+  0% { transform: scale(1); box-shadow: 0 0 20px rgba(79,70,229,0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(79,70,229,0.9); }
+  100% { transform: scale(1); box-shadow: 0 0 20px rgba(79,70,229,0.5); }
+}

@@ -15,7 +15,6 @@ export default function Page() {
   const [yesPressed, setYesPressed] = useState(false);
   const [isIntro, setIsIntro] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
-  const [noBtnStyle, setNoBtnStyle] = useState({});
   
   const audioRef = useRef(null);
 
@@ -113,61 +112,24 @@ export default function Page() {
     setIsMuted(!isMuted);
   };
 
-  const handleIntroClick = () => {
-    playAudio();
-    setIsIntro(false);
-  };
-
-  const dodgeButton = (e) => {
-    if (noCount >= 5) {
-      if (e) e.preventDefault(); // Stop click if it's a touch event
-      
-      // Calculate max coordinates to keep button fully inside screen
-      const maxX = window.innerWidth - 120;
-      const maxY = window.innerHeight - 60;
-      
-      const newX = Math.max(20, Math.random() * maxX);
-      const newY = Math.max(20, Math.random() * maxY);
-      
-      setNoBtnStyle({
-        position: 'fixed',
-        left: `${newX}px`,
-        top: `${newY}px`,
-        zIndex: 50,
-      });
-
-      // Increment text progression secretly while dodging
-      if (noCount < noPhrases.length - 1) {
-        setNoCount(prev => prev + 1);
-      }
-    }
-  };
-
   const handleNoClick = () => {
     playAudio();
     
-    if (noCount < 5) {
-      const nextCount = noCount + 1;
-      setNoCount(nextCount);
-      
-      if (nextCount === 1) {
-        Swal.fire({
-          title: "এত্ত পাষাণ তুমি? চাঁদটাও মেঘের আড়ালে লুকিয়ে গেলো তোমার না শুনে! 🌙",
-          customClass: {
-            popup: 'glass-swal',
-            title: 'glass-swal-title',
-            confirmButton: 'glass-swal-confirm'
-          },
-          buttonsStyling: false,
-          confirmButtonText: "আচ্ছা, আরেকবার ভাবছি!"
-        });
-      }
-    } else {
-      dodgeButton();
-    }
+    const nextCount = noCount + 1;
+    setNoCount(nextCount);
     
-    // Also trigger Swal at 10 if they somehow catch it!
-    if (noCount === 9) {
+    if (nextCount === 1) {
+      Swal.fire({
+        title: "এত্ত পাষাণ তুমি? চাঁদটাও মেঘের আড়ালে লুকিয়ে গেলো তোমার না শুনে! 🌙",
+        customClass: {
+          popup: 'glass-swal',
+          title: 'glass-swal-title',
+          confirmButton: 'glass-swal-confirm'
+        },
+        buttonsStyling: false,
+        confirmButtonText: "আচ্ছা, আরেকবার ভাবছি!"
+      });
+    } else if (nextCount === 10) {
       Swal.fire({
         title: "সত্যিই মানবে না? একটু তো মায়া করো! 🥺",
         customClass: {
@@ -211,6 +173,12 @@ export default function Page() {
   };
 
   const showNoButton = noCount < noPhrases.length;
+  
+  // Dynamic Styles for Heartbeat Mechanic
+  const yesHeartbeatDuration = Math.max(0.4, 2 - noCount * 0.15); // gets faster
+  const yesFontSize = Math.min(noCount * 5 + 24, 60); // gets bigger
+  const noScale = Math.max(0, 1 - noCount * 0.07); // gets smaller
+  const noOpacity = Math.max(0, 1 - noCount * 0.07); // fades out
 
   return (
     <>
@@ -287,20 +255,25 @@ export default function Page() {
                 
                 <div className="flex flex-wrap justify-center gap-6 items-center mt-6 h-24 animate-fadeInUp" style={{animationDelay: '0.3s'}}>
                   <button
-                    className="bg-indigo-600/80 hover:bg-indigo-500 text-white font-semibold py-3 px-10 rounded-full shadow-[0_0_20px_rgba(79,70,229,0.5)] hover:shadow-[0_0_30px_rgba(79,70,229,0.8)] backdrop-blur-md border border-indigo-400/30 transition-all duration-300 transform hover:scale-105"
-                    style={{ fontSize: Math.min(yesButtonSize, 40) }}
+                    className="bg-indigo-600/80 hover:bg-indigo-500 text-white font-semibold py-3 px-10 rounded-full backdrop-blur-md border border-indigo-400/30 transition-all duration-300 transform hover:scale-105"
+                    style={{ 
+                      fontSize: yesFontSize, 
+                      animation: `heartbeat ${yesHeartbeatDuration}s infinite ease-in-out` 
+                    }}
                     onClick={handleYesClick}
                   >
                     হ্যাঁ
                   </button>
                   
-                  {/* The Disappearing/Runaway No Button */}
+                  {/* The Fading "No" Button */}
                   {showNoButton && (
                     <button
                       onClick={handleNoClick}
-                      onMouseEnter={dodgeButton}
-                      onTouchStart={dodgeButton}
-                      style={noBtnStyle}
+                      style={{ 
+                        transform: `scale(${noScale})`, 
+                        opacity: noOpacity,
+                        pointerEvents: noOpacity < 0.2 ? 'none' : 'auto'
+                      }}
                       className="bg-slate-800/60 hover:bg-slate-700/80 text-slate-200 font-semibold py-3 px-6 rounded-full backdrop-blur-md border border-slate-600/50 transition-all duration-300"
                     >
                       {noPhrases[noCount]}
